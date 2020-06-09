@@ -9,6 +9,7 @@ const {
   updateUser,
   createTask,
   editTask,
+  getTasks,
 } = require("./data");
 const bodyParser = require("body-parser");
 
@@ -54,21 +55,26 @@ app.put("/users/:id", (req, res) => {
 });
 
 // TASKS
+app.get("/users/:id/tasks", (req, res) => {
+  const userId = req.params.id;
+  const result = getTasks({ userId });
+  console.log(result);
+
+  res.json({ tasks: result });
+});
+
 app.post("/users/:id/tasks", (req, res) => {
   const { taskName } = req.body;
   const userId = req.params.id;
   const result = createTask({ taskName, userId });
-  res.json({ user: result });
+  res.json({ task: result });
 });
 
 app.put("/users/:id/tasks/:taskId", (req, res) => {
   const { id, taskId } = req.params;
   const { taskName, state } = req.body;
-
   const result = editTask({ taskName, state, taskId });
-  console.log(result);
-
-  res.json({ user: result });
+  res.json({ task: result });
 });
 
 app.listen(process.env.PORT || 3001, function () {

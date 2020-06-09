@@ -44,6 +44,9 @@ const updateUser = ({ name, userId }) => {
 };
 
 // TASKS
+const getTasks = ({ userId }) => {
+  return db.get("tasks").filter({ userId });
+};
 
 const createTask = ({ userId, taskName, state }) => {
   const user = getUserById(userId);
@@ -75,3 +78,4 @@ exports.getUserById = getUserById;
 exports.updateUser = updateUser;
 exports.createTask = createTask;
 exports.editTask = editTask;
+exports.getTasks = getTasks;
