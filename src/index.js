@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+
 const {
   initDatabase,
   addUser,
@@ -28,8 +29,8 @@ app.get("/users", (req, res) => {
   res.json({ user: result });
 });
 
-app.get("/users/:id", (req, res) => {
-  const userId = req.params.id;
+app.get("/users/:userId", (req, res) => {
+  const { userId } = req.params;
   const result = getUserById(userId);
   res.json({ user: result });
 });
@@ -41,42 +42,46 @@ app.post("/users", (req, res) => {
   res.json({ user: result });
 });
 
-app.delete("/users/:id", (req, res) => {
-  const userId = req.params.id;
+app.delete("/users/:userId", (req, res) => {
+  const { userId } = req.params;
   const result = deleteUser(userId);
   res.json({ user: result });
 });
 
-app.put("/users/:id", (req, res) => {
-  const userId = req.params.id;
+app.put("/users/:userId", (req, res) => {
+  const { userId } = req.params;
   const name = req.body.name;
   const result = updateUser({ name, userId });
   res.json({ user: result });
 });
 
 // TASKS
-app.get("/users/:id/tasks", (req, res) => {
-  const userId = req.params.id;
+app.get("/users/:userId/tasks", (req, res) => {
+  const { userId } = req.params;
   const result = getTasks({ userId });
   console.log(result);
 
   res.json({ tasks: result });
 });
 
-app.post("/users/:id/tasks", (req, res) => {
+app.post("/users/:userId/tasks", (req, res) => {
   const { taskName } = req.body;
-  const userId = req.params.id;
+  const { userId } = req.params;
   const result = createTask({ taskName, userId });
   res.json({ task: result });
 });
 
-app.put("/users/:id/tasks/:taskId", (req, res) => {
-  const { id, taskId } = req.params;
+app.put("/users/:userId/tasks/:taskId", (req, res) => {
+  const { userId, taskId } = req.params;
   const { taskName, state } = req.body;
-  const result = editTask({ taskName, state, taskId });
+  const result = editTask({ taskName, state, taskId, userId });
   res.json({ task: result });
 });
 
+app.use((err, req, res, next) => {
+  console.error(err.message);
+  res.status(500).send({ error: err.message });
+});
 app.listen(process.env.PORT || 3001, function () {
   console.log("CORS-enabled web server listening on port 3001");
 });

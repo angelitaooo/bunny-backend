@@ -16,7 +16,7 @@ const getUsers = () => {
 
 const addUser = (userData) => {
   if (!userData.name) {
-    return null;
+    throw new Error("Username should not be blank");
   }
   const user = {
     name: userData.name,
@@ -33,12 +33,15 @@ const deleteUser = (userId) => {
 
 const getUserById = (userId) => {
   if (!userId) {
-    return null;
+    throw new Error("UserId does not exist");
   }
   return db.get("users").getById(userId);
 };
 
 const updateUser = ({ name, userId }) => {
+  if (!name) {
+    throw new Error("Username should not be blank");
+  }
   const user = getUserById(userId);
   return user.assign({ name }).write();
 };
@@ -50,6 +53,13 @@ const getTasks = ({ userId }) => {
 
 const createTask = ({ userId, taskName, state }) => {
   const user = getUserById(userId);
+  if (!user.value()) {
+    throw new Error("UserId should exist");
+  }
+  if (!taskName) {
+    throw new Error("Task name should not be blank");
+  }
+
   const task = {
     taskName,
     state: "todo",
@@ -60,13 +70,26 @@ const createTask = ({ userId, taskName, state }) => {
 };
 const getTaskById = (taskId) => {
   if (!taskId) {
-    return null;
+    throw new Error("taskId should exist");
   }
   return db.get("tasks").getById(taskId);
 };
 
-const editTask = ({ taskName, state, taskId }) => {
+const editTask = ({ taskName, state, taskId, userId }) => {
+  const user = getUserById(userId);
   const task = getTaskById(taskId);
+  if (!task.value()) {
+    throw new Error("TaskId should exist");
+  }
+  if (!user.value()) {
+    throw new Error("UserId should exist");
+  }
+  if (!taskName) {
+    throw new Error("Task name should not be blank");
+  }
+  if (!state) {
+    throw new Error("State should not be blank");
+  }
   return task.assign({ taskName, state }).write();
 };
 
