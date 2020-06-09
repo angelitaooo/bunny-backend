@@ -10,6 +10,9 @@ const defaults = { users: [] };
 const initDatabase = () => db.defaults(defaults).write();
 
 // CRUD
+const getUsers = () => {
+  return db.get("users");
+};
 
 const addUser = (userData) => {
   if (!userData.name) {
@@ -22,5 +25,23 @@ const addUser = (userData) => {
   return db.get("users").insert(user).write();
 };
 
+const deleteUser = (userId) => {
+  if (!userId) {
+    return null;
+  }
+  return db.get("users").remove({ id: userId }).write();
+};
+
+const getUserById = (userId) => {
+  if (!userId) {
+    return null;
+  }
+
+  return db.get("users").getById(userId);
+};
+
 exports.initDatabase = initDatabase;
 exports.addUser = addUser;
+exports.getUsers = getUsers;
+exports.deleteUser = deleteUser;
+exports.getUserById = getUserById;

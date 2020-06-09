@@ -1,6 +1,12 @@
 const express = require("express");
 const cors = require("cors");
-const { initDatabase, addUser } = require("./data");
+const {
+  initDatabase,
+  addUser,
+  getUsers,
+  deleteUser,
+  getUserById,
+} = require("./data");
 const bodyParser = require("body-parser");
 
 // Initialize app
@@ -13,11 +19,28 @@ initDatabase();
 app.use(cors());
 app.use(bodyParser.json());
 
+app.get("/users", (req, res) => {
+  const result = getUsers();
+  res.json({ user: result });
+});
+
+app.get("/users/:id", (req, res) => {
+  const userId = req.params.id;
+  const result = getUserById(userId);
+  res.json({ user: result });
+});
+
 app.post("/users", (req, res) => {
   const user = req.body;
   const result = addUser({ name: user.name });
 
-  res.json({ result });
+  res.json({ user: result });
+});
+
+app.delete("/users/:id", (req, res) => {
+  const userId = req.params.id;
+  const result = deleteUser(userId);
+  res.json({ user: result });
 });
 
 app.listen(process.env.PORT || 3001, function () {
