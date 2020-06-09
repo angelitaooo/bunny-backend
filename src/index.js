@@ -6,6 +6,7 @@ const {
   getUsers,
   deleteUser,
   getUserById,
+  updateUser,
 } = require("./data");
 const bodyParser = require("body-parser");
 
@@ -40,6 +41,13 @@ app.post("/users", (req, res) => {
 app.delete("/users/:id", (req, res) => {
   const userId = req.params.id;
   const result = deleteUser(userId);
+  res.json({ user: result });
+});
+
+app.put("/users/:id", (req, res) => {
+  const userId = req.params.id;
+  const name = req.body.name;
+  const result = updateUser({ name, userId });
   res.json({ user: result });
 });
 

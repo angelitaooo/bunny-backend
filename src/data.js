@@ -36,8 +36,12 @@ const getUserById = (userId) => {
   if (!userId) {
     return null;
   }
-
   return db.get("users").getById(userId);
+};
+
+const updateUser = ({ name, userId }) => {
+  const user = getUserById(userId);
+  return user.assign({ name }).write();
 };
 
 exports.initDatabase = initDatabase;
@@ -45,3 +49,4 @@ exports.addUser = addUser;
 exports.getUsers = getUsers;
 exports.deleteUser = deleteUser;
 exports.getUserById = getUserById;
+exports.updateUser = updateUser;
