@@ -49,15 +49,22 @@ const createTask = ({ userId, taskName, state }) => {
   const user = getUserById(userId);
   const task = {
     taskName,
-    state,
+    state: "todo",
     userId,
   };
 
   return db.get("tasks").insert(task).write();
-  console.log("==== TASKS ====");
-  console.log(task);
-  console.log("==== USER ====");
-  console.log(user);
+};
+const getTaskById = (taskId) => {
+  if (!taskId) {
+    return null;
+  }
+  return db.get("tasks").getById(taskId);
+};
+
+const editTask = ({ taskName, state, taskId }) => {
+  const task = getTaskById(taskId);
+  return task.assign({ taskName, state }).write();
 };
 
 exports.initDatabase = initDatabase;
@@ -67,3 +74,4 @@ exports.deleteUser = deleteUser;
 exports.getUserById = getUserById;
 exports.updateUser = updateUser;
 exports.createTask = createTask;
+exports.editTask = editTask;

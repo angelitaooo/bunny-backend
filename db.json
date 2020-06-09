@@ -7,14 +7,26 @@
   ],
   "tasks": [
     {
-      "state": "todo",
+      "state": "done",
       "userId": "d684a93e-7bb2-4896-adda-ac0babe24e42",
-      "id": "1981204e-1976-48c8-b453-08c602927dc2"
+      "id": "1981204e-1976-48c8-b453-08c602927dc2",
+      "taskName": "cambio"
     },
     {
       "state": "todo",
       "userId": "d684a93e-7bb2-4896-adda-ac0babe24e42",
       "id": "08bd08f1-d63f-43cc-8858-b3bf9c393486"
+    },
+    {
+      "state": "todo",
+      "userId": "d684a93e-7bb2-4896-adda-ac0babe24e42",
+      "id": "2c35f20a-3cca-4d9e-b444-929564642480"
+    },
+    {
+      "taskName": "other task fish",
+      "state": "todo",
+      "userId": "d684a93e-7bb2-4896-adda-ac0babe24e42",
+      "id": "94533e15-b56c-4aae-a73a-6f6472c8ac1e"
     }
   ]
 }

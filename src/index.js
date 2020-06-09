@@ -8,6 +8,7 @@ const {
   getUserById,
   updateUser,
   createTask,
+  editTask,
 } = require("./data");
 const bodyParser = require("body-parser");
 
@@ -52,10 +53,21 @@ app.put("/users/:id", (req, res) => {
   res.json({ user: result });
 });
 
+// TASKS
 app.post("/users/:id/tasks", (req, res) => {
-  const user = req.body;
+  const { taskName } = req.body;
   const userId = req.params.id;
-  const result = createTask({ taskName: user.name, userId, state: "todo" });
+  const result = createTask({ taskName, userId });
+  res.json({ user: result });
+});
+
+app.put("/users/:id/tasks/:taskId", (req, res) => {
+  const { id, taskId } = req.params;
+  const { taskName, state } = req.body;
+
+  const result = editTask({ taskName, state, taskId });
+  console.log(result);
+
   res.json({ user: result });
 });
 
