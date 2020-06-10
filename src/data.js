@@ -26,8 +26,10 @@ const addUser = (userData) => {
 
 const deleteUser = (userId) => {
   if (!userId) {
-    return null;
+    throw new Error("UserId does not exist");
   }
+  // delete associated tasks
+  deleteTasksByUserId({ userId });
   return db.get("users").remove({ id: userId }).write();
 };
 
@@ -47,6 +49,11 @@ const updateUser = ({ name, userId }) => {
 };
 
 // TASKS
+
+const deleteTasksByUserId = ({ userId }) => {
+  return db.get("tasks").remove({ userId }).write();
+};
+
 const getTasks = ({ userId }) => {
   return db.get("tasks").filter({ userId });
 };

@@ -26,7 +26,7 @@ app.use(bodyParser.json());
 
 app.get("/users", (req, res) => {
   const result = getUsers();
-  res.json({ user: result });
+  res.json({ users: result });
 });
 
 app.get("/users/:userId", (req, res) => {
