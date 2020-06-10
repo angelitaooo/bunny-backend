@@ -3,6 +3,20 @@
 This project is a REST API, that is build with Express and [lowdb](https://github.com/typicode/lowdb).
 I chose lowDb because I have never used a database before and it seemed easy to use. LowDB is a small local JSON database powered by Lodash, all the data is saved in db.json file.
 
+# Demo
+
+[Video Demo](https://www.loom.com/share/f3a08deb17cb4d2b943807b318021c49)
+
+## Acceptance criteria
+
+- [x] Lists the users.
+- [x] Create new user.
+- [x] Update the user.
+- [x] Delete the user and its tasks.
+- [x] Get single user by id
+- [x] Create tasks.
+- [x] Update tasks.
+
 # Project Routes
 
 | Verbs  | User Routes                       |
@@ -28,6 +42,10 @@ I chose lowDb because I have never used a database before and it seemed easy to 
   domains.
 - [body-parser](https://www.npmjs.com/package/body-parser): To read and send JSON
 
+# Project Diagram
+
+<img src="/images/diagram.png" width=600 />
+
 # Run project locally
 
 Install the project
@@ -50,8 +68,3 @@ You can use the API from any client thanks to the CORS middleware.
 3. Use a `Procfile`, a text file in the root directory of the application, to explicitly declare what command should be executed to start the app.
 4. Create an app on Heroku `heroku create`
 5. Deploy the code `git push heroku master`
-
-loom
-TODO EN POSTMAN
-Ver todos los usuarios, creando un usuario, actualizandlo y creando una tarea para ese usuario
-y mostrar un error en postman
